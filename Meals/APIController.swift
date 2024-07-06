@@ -34,7 +34,7 @@ struct IngredientData: Hashable {
     let measurement: String
 }
 
-struct Meal: Decodable {
+final class Meal: Decodable, ObservableObject {
     enum StringCodingKeys: String, CodingKey {
         case idMeal, strMeal, strDrinkAlternate, strCategory, strArea, strInstructions, strMealThumb, strTags, strYoutube, strSource, strImageSource, strCreativeCommonsConfirmed, dateModified
     }

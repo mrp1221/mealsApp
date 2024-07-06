@@ -14,28 +14,21 @@ struct CategoryPageView: View {
     var body: some View {
         NavigationStack {
             if var meals = mealsDisplay {
-                VStack {
-                    List {
-                        ForEach(meals, id: \.self) { meal in
-                            NavigationLink(destination: MealView(mealId: meal.idMeal)
-                                .navigationBarTitleDisplayMode(.inline)) {
-                                HStack {
-                                    AsyncImage(url: URL(string: "\(meal.strMealThumb)/preview"))
-                                        .frame(width: 120, height: 70)
-                                        .clipShape(.rect(cornerRadius: 10))
-                                    Text(meal.strMeal).padding()
-                                }
+                List {
+                    ForEach(meals, id: \.self) { meal in
+                        NavigationLink(destination: MealView(mealId: meal.idMeal)
+                            .navigationBarTitleDisplayMode(.inline)) {
+                            HStack {
+                                AsyncImage(url: URL(string: "\(meal.strMealThumb)/preview"))
+                                    .frame(width: 120, height: 70)
+                                    .clipShape(.rect(cornerRadius: 10))
+                                Text(meal.strMeal).padding()
                             }
-                        }.listRowSeparator(.visible, edges: .all)
-                    }
-                    .listStyle(.insetGrouped)
-                    .searchable(text: $searchText)
-                    .task {
-                        if !searchText.isEmpty {
-                            meals = meals.filter { $0.strMeal.contains(searchText) }
                         }
-                    }
+                    }.listRowSeparator(.visible, edges: .all)
                 }
+                .listStyle(.insetGrouped)
+                .searchable(text: $searchText)
                 .navigationTitle("\(category) Dishes")
             } else {
                 Text("Loading...").font(.title)
@@ -64,7 +57,7 @@ struct CategoryPageView: View {
                 return data.filter { $0.strMeal.contains(searchText) }
             }
         } else {
-            return nil
+            return []
         }
     }
 }

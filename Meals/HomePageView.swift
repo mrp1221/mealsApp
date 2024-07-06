@@ -12,15 +12,8 @@ struct HomePageView: View {
     var body: some View {
         NavigationStack {
             if let categories = categoryData {
-                List {
-                    ForEach(categories, id: \.self) { category in
-                        NavigationLink(destination: CategoryPageView(category: category.strCategory)
-                            .navigationBarTitleDisplayMode(.inline)) {
-                                Text(category.strCategory).font(.title).padding()
-                            }
-                    }
-                }
-                .navigationTitle("Meal Categories")
+                CategoryListView(categories: categories)
+                    .navigationTitle("Meal Categories")
             } else {
                 Text("Loading...").font(.title)
             }
@@ -34,6 +27,20 @@ struct HomePageView: View {
                     print("Error!")
                 }
                 return
+            }
+        }
+    }
+}
+
+struct CategoryListView: View {
+    @State var categories: [Category]
+    var body: some View {
+        List {
+            ForEach(categories, id: \.self) { category in
+                NavigationLink(destination: CategoryPageView(category: category.strCategory)
+                    .navigationBarTitleDisplayMode(.inline)) {
+                        Text(category.strCategory).font(.title).padding()
+                    }
             }
         }
     }
