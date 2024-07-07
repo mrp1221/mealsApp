@@ -12,7 +12,7 @@ struct HomePageView: View {
     var body: some View {
         NavigationStack {
             if let categories = categoryData {
-                CategoryListView(categories: categories)
+                CategoryListView(categoryData: categories)
                     .navigationTitle("Meal Categories")
             } else {
                 Text("Loading...").font(.title)
@@ -33,21 +33,21 @@ struct HomePageView: View {
 }
 
 struct CategoryListView: View {
-    @State var categories: [MealReference]
+    @State var categoryData: [MealReference]
     @State var searchText: String = ""
     var body: some View {
         List {
-            TextField("Search All Meals", text: $searchText)
-                .onSubmit {
-                    print("Submitted")
-                }
             ForEach(categories, id: \.self) { category in
                 NavigationLink(destination: CategoryPageView(category: category.strCategory)
                     .navigationBarTitleDisplayMode(.inline)) {
                         Text(category.strCategory).font(.title).padding()
                     }
             }
-        }
+        }.searchable(text: $searchText)
+    }
+    
+    var categories: [MealReference] {
+        return searchText.isEmpty ? categoryData : categoryData.filter { $0.strCategory.contains(searchText) }
     }
 }
 

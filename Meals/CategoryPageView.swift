@@ -51,14 +51,9 @@ struct CategoryPageView: View {
     
     var mealsDisplay: [MealReference]? {
         if let data = mealsData {
-            if searchText.isEmpty {
-                return data
-            } else {
-                return data.filter { $0.strMeal.contains(searchText) }
-            }
-        } else {
-            return []
+            return searchText.isEmpty ? data : data.filter{ $0.strMeal.contains(searchText) }
         }
+        return nil
     }
 }
 

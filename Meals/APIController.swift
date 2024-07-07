@@ -39,14 +39,14 @@ struct GetMealDataResponse: Decodable {
     let meals: [Meal]
 }
 
-struct IngredientData: Hashable {
-    let ingredient: String
-    let measurement: String
-}
-
 final class Meal: Decodable, ObservableObject {
     enum StringCodingKeys: String, CodingKey {
         case idMeal, strMeal, strDrinkAlternate, strCategory, strArea, strInstructions, strMealThumb, strTags, strYoutube, strSource, strImageSource, strCreativeCommonsConfirmed, dateModified
+    }
+    
+    struct IngredientData: Hashable {
+        let ingredient: String
+        let measurement: String
     }
     
     struct DynamicCodingKeys: CodingKey {
