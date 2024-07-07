@@ -39,7 +39,7 @@ final class Meal: Decodable, ObservableObject {
         case idMeal, strMeal, strDrinkAlternate, strCategory, strArea, strInstructions, strMealThumb, strTags, strYoutube, strSource, strImageSource, strCreativeCommonsConfirmed, dateModified
     }
     
-    struct CodingKeys: CodingKey {
+    struct DynamicCodingKeys: CodingKey {
         var intValue: Int? // Not used, but needed for CodingKey conformity
         var stringValue: String
         init(stringValue: String) {
@@ -68,29 +68,30 @@ final class Meal: Decodable, ObservableObject {
     let dateModified: String
     
     init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let customContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
+        let defaultContainer = try decoder.container(keyedBy: StringCodingKeys.self)
         
-        self.idMeal = try container.decodeIfPresent(String.self, forKey: CodingKeys(stringValue: "idMeal")) ?? ""
-        self.strMeal = try container.decodeIfPresent(String.self, forKey: CodingKeys(stringValue: "strMeal")) ?? ""
-        self.strDrinkAlternate = try container.decodeIfPresent(String.self, forKey: CodingKeys(stringValue: "strDrinkAlternate")) ?? ""
-        self.strCategory = try container.decodeIfPresent(String.self, forKey: CodingKeys(stringValue: "strCategory")) ?? ""
-        self.strArea = try container.decodeIfPresent(String.self, forKey: CodingKeys(stringValue: "strArea")) ?? ""
-        self.strInstructions = try container.decodeIfPresent(String.self, forKey: CodingKeys(stringValue: "strInstructions")) ?? ""
-        self.strMealThumb = try container.decodeIfPresent(String.self, forKey: CodingKeys(stringValue: "strMealThumb")) ?? ""
-        self.strTags = try container.decodeIfPresent(String.self, forKey: CodingKeys(stringValue: "strTags")) ?? ""
-        self.strYoutube = try URL(string: container.decodeIfPresent(String.self, forKey: CodingKeys(stringValue: "strYoutube")) ?? "") ?? nil
-        self.strSource = try URL(string: container.decodeIfPresent(String.self, forKey: CodingKeys(stringValue: "strSource")) ?? "") ?? nil
-        self.strImageSource = try URL(string: container.decodeIfPresent(String.self, forKey: CodingKeys(stringValue: "strImageSource")) ?? "") ?? nil
-        self.strCreativeCommonsConfirmed = try container.decodeIfPresent(String.self, forKey: CodingKeys(stringValue: "strCreativeCommonsConfirmed")) ?? ""
-        self.dateModified = try container.decodeIfPresent(String.self, forKey: CodingKeys(stringValue: "dateModified")) ?? ""
+        self.idMeal = try defaultContainer.decodeIfPresent(String.self, forKey: .idMeal) ?? ""
+        self.strMeal = try defaultContainer.decodeIfPresent(String.self, forKey: .strMeal) ?? ""
+        self.strDrinkAlternate = try defaultContainer.decodeIfPresent(String.self, forKey: .strDrinkAlternate) ?? ""
+        self.strCategory = try defaultContainer.decodeIfPresent(String.self, forKey: .strCategory) ?? ""
+        self.strArea = try defaultContainer.decodeIfPresent(String.self, forKey: .strArea) ?? ""
+        self.strInstructions = try defaultContainer.decodeIfPresent(String.self, forKey: .strInstructions) ?? ""
+        self.strMealThumb = try defaultContainer.decodeIfPresent(String.self, forKey: .strMealThumb) ?? ""
+        self.strTags = try defaultContainer.decodeIfPresent(String.self, forKey: .strTags) ?? ""
+        self.strYoutube = try URL(string: defaultContainer.decodeIfPresent(String.self, forKey: .strYoutube) ?? "") ?? nil
+        self.strSource = try URL(string: defaultContainer.decodeIfPresent(String.self, forKey: .strSource) ?? "") ?? nil
+        self.strImageSource = try URL(string: defaultContainer.decodeIfPresent(String.self, forKey: .strImageSource) ?? "") ?? nil
+        self.strCreativeCommonsConfirmed = try defaultContainer.decodeIfPresent(String.self, forKey: .strCreativeCommonsConfirmed) ?? ""
+        self.dateModified = try defaultContainer.decodeIfPresent(String.self, forKey: .dateModified) ?? ""
         
         self.ingredients = []
         for i in 1...20 {
-            let ingredientKey = CodingKeys(stringValue: "strIngredient\(i)")
-            let measurementKey = CodingKeys(stringValue: "strMeasure\(i)")
+            let ingredientKey = DynamicCodingKeys(stringValue: "strIngredient\(i)")
+            let measurementKey = DynamicCodingKeys(stringValue: "strMeasure\(i)")
             
-            if let ingredient = try? container.decodeIfPresent(String.self, forKey: ingredientKey),
-               let measurement = try? container.decodeIfPresent(String.self, forKey: measurementKey) {
+            if let ingredient = try? customContainer.decodeIfPresent(String.self, forKey: ingredientKey),
+               let measurement = try? customContainer.decodeIfPresent(String.self, forKey: measurementKey) {
                 if ingredient.count > 0 {
                     ingredients.append(IngredientData(ingredient: ingredient, measurement: measurement))
                 } else {

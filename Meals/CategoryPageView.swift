@@ -13,7 +13,7 @@ struct CategoryPageView: View {
     var category: String
     var body: some View {
         NavigationStack {
-            if var meals = mealsDisplay {
+            if let meals = mealsDisplay {
                 List {
                     ForEach(meals, id: \.self) { meal in
                         NavigationLink(destination: MealView(mealId: meal.idMeal)
