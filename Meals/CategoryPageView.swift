@@ -37,7 +37,7 @@ struct CategoryPageView: View {
         .task {
             guard let _ = mealsData else {
                 do {
-                    mealsData = try await APIController.fetchMealList(category: category).sorted {
+                    mealsData = try await APIController.fetchList(categoryQuery: category).sorted {
                         $0.strMeal < $1.strMeal
                     }
                 } catch {

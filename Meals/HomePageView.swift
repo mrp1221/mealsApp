@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomePageView: View {
-    @State private var categoryData: [Category]?
+    @State private var categoryData: [MealReference]?
     var body: some View {
         NavigationStack {
             if let categories = categoryData {
@@ -22,7 +22,7 @@ struct HomePageView: View {
             guard let _ = categoryData else {
                 do {
                     print("FETCHING DATA")
-                    categoryData = try await APIController.fetchCategoryList()
+                    categoryData = try await APIController.fetchList()
                 } catch {
                     print("Error!")
                 }
@@ -33,9 +33,14 @@ struct HomePageView: View {
 }
 
 struct CategoryListView: View {
-    @State var categories: [Category]
+    @State var categories: [MealReference]
+    @State var searchText: String = ""
     var body: some View {
         List {
+            TextField("Search All Meals", text: $searchText)
+                .onSubmit {
+                    print("Submitted")
+                }
             ForEach(categories, id: \.self) { category in
                 NavigationLink(destination: CategoryPageView(category: category.strCategory)
                     .navigationBarTitleDisplayMode(.inline)) {
