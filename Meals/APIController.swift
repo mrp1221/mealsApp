@@ -55,18 +55,18 @@ final class Meal: Decodable, ObservableObject {
     
     let idMeal: String
     let strMeal: String
-    let strDrinkAlternate: String
+    let strDrinkAlternate: String?
     let strCategory: String
     let strArea: String
     let strInstructions: String
     let strMealThumb: String
-    let strTags: String
+    let strTags: String?
     let strYoutube: URL?
     var ingredients: [IngredientData]
     let strSource: URL?
     let strImageSource: URL?
-    let strCreativeCommonsConfirmed: String
-    let dateModified: String
+    let strCreativeCommonsConfirmed: String?
+    let dateModified: String?
     
     init(from decoder: Decoder) throws {
         let customContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
@@ -74,17 +74,17 @@ final class Meal: Decodable, ObservableObject {
         
         self.idMeal = try defaultContainer.decodeIfPresent(String.self, forKey: .idMeal) ?? ""
         self.strMeal = try defaultContainer.decodeIfPresent(String.self, forKey: .strMeal) ?? ""
-        self.strDrinkAlternate = try defaultContainer.decodeIfPresent(String.self, forKey: .strDrinkAlternate) ?? ""
+        self.strDrinkAlternate = try defaultContainer.decodeIfPresent(String.self, forKey: .strDrinkAlternate) ?? nil
         self.strCategory = try defaultContainer.decodeIfPresent(String.self, forKey: .strCategory) ?? ""
         self.strArea = try defaultContainer.decodeIfPresent(String.self, forKey: .strArea) ?? ""
         self.strInstructions = try defaultContainer.decodeIfPresent(String.self, forKey: .strInstructions) ?? ""
         self.strMealThumb = try defaultContainer.decodeIfPresent(String.self, forKey: .strMealThumb) ?? ""
-        self.strTags = try defaultContainer.decodeIfPresent(String.self, forKey: .strTags) ?? ""
+        self.strTags = try defaultContainer.decodeIfPresent(String.self, forKey: .strTags) ?? nil
         self.strYoutube = try URL(string: defaultContainer.decodeIfPresent(String.self, forKey: .strYoutube) ?? "") ?? nil
         self.strSource = try URL(string: defaultContainer.decodeIfPresent(String.self, forKey: .strSource) ?? "") ?? nil
         self.strImageSource = try URL(string: defaultContainer.decodeIfPresent(String.self, forKey: .strImageSource) ?? "") ?? nil
-        self.strCreativeCommonsConfirmed = try defaultContainer.decodeIfPresent(String.self, forKey: .strCreativeCommonsConfirmed) ?? ""
-        self.dateModified = try defaultContainer.decodeIfPresent(String.self, forKey: .dateModified) ?? ""
+        self.strCreativeCommonsConfirmed = try defaultContainer.decodeIfPresent(String.self, forKey: .strCreativeCommonsConfirmed) ?? nil
+        self.dateModified = try defaultContainer.decodeIfPresent(String.self, forKey: .dateModified) ?? nil
         
         self.ingredients = []
         for i in 1...20 {

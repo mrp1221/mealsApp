@@ -42,12 +42,18 @@ struct MealView: View {
 
 struct VerticalMealView: View {
     @EnvironmentObject var meal: Meal
+    var hasAdtlDetails: Bool {
+        return meal.strDrinkAlternate != nil || meal.strTags != nil || meal.strSource != nil || meal.strCreativeCommonsConfirmed != nil || meal.dateModified != nil
+    }
     var body: some View {
         ScrollView {
             VStack {
                 AsyncImage(url: URL(string: meal.strMealThumb))
                     .frame(width: 380, height: 380)
                     .clipShape(.rect(cornerRadius: 10))
+                if let src = meal.strImageSource {
+                    Text("Image source: \(src)").font(.footnote)
+                }
                 
                 HStack {
                     VStack {
@@ -69,16 +75,40 @@ struct VerticalMealView: View {
                 Text("\(meal.strCategory) -- \(meal.strArea)").font(.footnote)
                 
                 Text("**Instructions:**").font(.title2)
-                Text(meal.strInstructions)
+                Text("\(meal.strInstructions)\n")
                     .font(.caption)
                     .padding()
+
+                if hasAdtlDetails {
+                    Text("**Adtl Details:**")
+                    if let drink = meal.strDrinkAlternate {
+                        Text("Drink alternate: \(drink)")
+                    }
+                    if let tags = meal.strTags {
+                        Text("Tags: \(tags)")
+                    }
+                    if let src = meal.strSource {
+                        Text(.init("Original source: [HERE](\(src.absoluteString))"))
+                    }
+                    if let comm = meal.strCreativeCommonsConfirmed {
+                        Text("Creative Commons Confirmed: \(comm)")
+                    }
+                    if let mod = meal.dateModified {
+                        Text("Date modified: \(mod)")
+                    }
+                }
             }
+                
         }
     }
 }
 
+
 struct HorizontalMealView: View {
     @EnvironmentObject var meal: Meal
+    var hasAdtlDetails: Bool {
+        return meal.strDrinkAlternate != nil || meal.strTags != nil || meal.strSource != nil || meal.strCreativeCommonsConfirmed != nil || meal.dateModified != nil
+    }
     var body: some View {
         GeometryReader { metrics in
             HStack {
@@ -95,6 +125,24 @@ struct HorizontalMealView: View {
                         }
                         if let youtubeLink = meal.strYoutube {
                             Text(.init("[YouTube Link](\(youtubeLink))")).font(.footnote).padding()
+                        }
+                    }
+                    if hasAdtlDetails {
+                        Text("**Adtl Details:**")
+                        if let drink = meal.strDrinkAlternate {
+                            Text("Drink alternate: \(drink)")
+                        }
+                        if let tags = meal.strTags {
+                            Text("Tags: \(tags)")
+                        }
+                        if let src = meal.strSource {
+                            Text(.init("Original source: [HERE](\(src.absoluteString))"))
+                        }
+                        if let comm = meal.strCreativeCommonsConfirmed {
+                            Text("Creative Commons Confirmed: \(comm)")
+                        }
+                        if let mod = meal.dateModified {
+                            Text("Date modified: \(mod)")
                         }
                     }
                 }
