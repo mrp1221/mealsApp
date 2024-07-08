@@ -25,13 +25,6 @@
 			remoteGlobalIDString = A1C916952C33143A00D5443A;
 			remoteInfo = Meals;
 		};
-		A1C916B12C33143C00D5443A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A1C9168E2C33143A00D5443A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A1C916952C33143A00D5443A;
-			remoteInfo = Meals;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -44,7 +37,6 @@
 		A1C916A02C33143C00D5443A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A1C916A62C33143C00D5443A /* MealsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MealsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1C916AA2C33143C00D5443A /* MealsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsTests.swift; sourceTree = "<group>"; };
-		A1C916B02C33143C00D5443A /* MealsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MealsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1C916C32C33268700D5443A /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -57,13 +49,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A1C916A32C33143C00D5443A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A1C916AD2C33143C00D5443A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -87,7 +72,6 @@
 			children = (
 				A1C916962C33143A00D5443A /* Meals.app */,
 				A1C916A62C33143C00D5443A /* MealsTests.xctest */,
-				A1C916B02C33143C00D5443A /* MealsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -160,24 +144,6 @@
 			productReference = A1C916A62C33143C00D5443A /* MealsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		A1C916AF2C33143C00D5443A /* MealsUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A1C916C02C33143D00D5443A /* Build configuration list for PBXNativeTarget "MealsUITests" */;
-			buildPhases = (
-				A1C916AC2C33143C00D5443A /* Sources */,
-				A1C916AD2C33143C00D5443A /* Frameworks */,
-				A1C916AE2C33143C00D5443A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A1C916B22C33143C00D5443A /* PBXTargetDependency */,
-			);
-			name = MealsUITests;
-			productName = MealsUITests;
-			productReference = A1C916B02C33143C00D5443A /* MealsUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -192,10 +158,6 @@
 						CreatedOnToolsVersion = 15.4;
 					};
 					A1C916A52C33143C00D5443A = {
-						CreatedOnToolsVersion = 15.4;
-						TestTargetID = A1C916952C33143A00D5443A;
-					};
-					A1C916AF2C33143C00D5443A = {
 						CreatedOnToolsVersion = 15.4;
 						TestTargetID = A1C916952C33143A00D5443A;
 					};
@@ -216,7 +178,6 @@
 			targets = (
 				A1C916952C33143A00D5443A /* Meals */,
 				A1C916A52C33143C00D5443A /* MealsTests */,
-				A1C916AF2C33143C00D5443A /* MealsUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -232,13 +193,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A1C916A42C33143C00D5443A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A1C916AE2C33143C00D5443A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -268,13 +222,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A1C916AC2C33143C00D5443A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -282,11 +229,6 @@
 			isa = PBXTargetDependency;
 			target = A1C916952C33143A00D5443A /* Meals */;
 			targetProxy = A1C916A72C33143C00D5443A /* PBXContainerItemProxy */;
-		};
-		A1C916B22C33143C00D5443A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A1C916952C33143A00D5443A /* Meals */;
-			targetProxy = A1C916B12C33143C00D5443A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -504,40 +446,6 @@
 			};
 			name = Release;
 		};
-		A1C916C12C33143D00D5443A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mpohlhaus.MealsUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Meals;
-			};
-			name = Debug;
-		};
-		A1C916C22C33143D00D5443A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mpohlhaus.MealsUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Meals;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -564,15 +472,6 @@
 			buildConfigurations = (
 				A1C916BE2C33143D00D5443A /* Debug */,
 				A1C916BF2C33143D00D5443A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A1C916C02C33143D00D5443A /* Build configuration list for PBXNativeTarget "MealsUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A1C916C12C33143D00D5443A /* Debug */,
-				A1C916C22C33143D00D5443A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -60,7 +60,7 @@ final class MealsTests: XCTestCase {
     
     func testGetCategoryList() async throws {
         do {
-            let categories: [MealReference] = try await APIController.fetchList()
+            let categories = try await APIController.fetchCategoryList()
             XCTAssertNotEqual(0, categories.count)
         } catch {
             XCTFail(error.localizedDescription)
@@ -69,7 +69,7 @@ final class MealsTests: XCTestCase {
     
     func testGetMealList() async throws {
         do {
-            let desserts: [MealReference] = try await APIController.fetchList(categoryQuery: "Dessert")
+            let desserts: [MealReference] = try await APIController.fetchMealList(category: "Dessert")
             XCTAssertNotEqual(0, desserts.count)
         } catch {
             XCTFail(error.localizedDescription)
