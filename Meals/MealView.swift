@@ -75,7 +75,7 @@ struct VerticalMealView: View {
                 
                 Text("**Instructions:**").font(.title2)
                 Text("\(meal.strInstructions)\n")
-                    .font(.caption)
+                    .font(.callout)
                     .padding()
 
                 if hasAdtlDetails {
