@@ -22,7 +22,9 @@ struct HomePageView: View {
             guard let _ = categoryData else {
                 do {
                     print("FETCHING DATA")
-                    categoryData = try await APIController.fetchCategoryList()
+                    categoryData = try await APIController.fetchCategoryList().sorted {
+                        $0.strCategory < $1.strCategory
+                    }
                 } catch {
                     print("Error!")
                 }

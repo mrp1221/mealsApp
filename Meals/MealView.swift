@@ -52,9 +52,9 @@ struct VerticalMealView: View {
                     .frame(width: 380, height: 380)
                     .clipShape(.rect(cornerRadius: 10))
                 if let src = meal.strImageSource {
-                    Text("Image source: \(src)").font(.footnote)
+                    Text(.init("[(image source)](\(src.absoluteString))")).font(.footnote)
                 }
-                
+                Text("\(meal.strCategory) -- \(meal.strArea)").font(.footnote)
                 HStack {
                     VStack {
                         Text("Ingredients: ").frame(alignment: .leading).font(.title2)
@@ -72,7 +72,6 @@ struct VerticalMealView: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 10).stroke(.gray, lineWidth: 3)
                 )
-                Text("\(meal.strCategory) -- \(meal.strArea)").font(.footnote)
                 
                 Text("**Instructions:**").font(.title2)
                 Text("\(meal.strInstructions)\n")
