@@ -7,31 +7,22 @@
 
 import Foundation
 
+struct GetCategoryListResponse: Decodable {
+    let meals: [Category]
+}
+
+struct Category: Decodable, Hashable {
+    let strCategory: String
+}
+
 struct GetMealListResponse: Decodable {
     let meals: [MealReference]
 }
 
 struct MealReference: Decodable, Hashable {
-    enum MealRefCodingKeys: String, CodingKey {
-        case strMeal, strMealThumb, idMeal
-    }
-    enum CategoryRefKeys: String, CodingKey {
-        case strCategory
-    }
-    
     let strMeal: String
     let strMealThumb: String
     let idMeal: String
-    let strCategory: String
-    
-    init(from decoder: any Decoder) throws {
-        let mealContainer = try decoder.container(keyedBy: MealRefCodingKeys.self)
-        let categoryContainer = try decoder.container(keyedBy: CategoryRefKeys.self)
-        self.strMeal = try mealContainer.decodeIfPresent(String.self, forKey: .strMeal) ?? ""
-        self.strMealThumb = try mealContainer.decodeIfPresent(String.self, forKey: .strMealThumb) ?? ""
-        self.idMeal = try mealContainer.decodeIfPresent(String.self, forKey: .idMeal) ?? ""
-        self.strCategory = try categoryContainer.decodeIfPresent(String.self, forKey: .strCategory) ?? ""
-    }
 }
 
 // Individual meals are returned in a list of size 1
@@ -117,10 +108,32 @@ class APIController {
     static let mealListEndpoint = "https://themealdb.com/api/json/v1/1/filter.php?c="
     static let mealEndpoint = "https://themealdb.com/api/json/v1/1/lookup.php?i="
     
-    static func fetchList(categoryQuery: String? = nil) async throws -> [MealReference] {
-        let urlString = categoryQuery.map { "\(mealListEndpoint)\($0)" } ?? categoryListEndpoint
-
-        guard let url = URL(string: urlString) else {
+    static func fetchCategoryList() async throws -> [Category] {
+        guard let url = URL(string: categoryListEndpoint) else {
+            print("URL Error!! Check category lsit endpoint")
+            throw MealError.URLError
+        }
+        print(url)
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            print("Response error! Check category list endpoint")
+            throw MealError.ResponseError
+        }
+        
+        do {
+            let categoryData = try JSONDecoder().decode(GetCategoryListResponse.self, from: data)
+            print("Success!!!")
+            return categoryData.meals
+        } catch {
+            print("Error parsing category data from list, check endpoint and respone!", error)
+            throw MealError.DataParseError
+        }
+    }
+        
+    
+    static func fetchMealList(category: String) async throws -> [MealReference] {
+        guard let url = URL(string: "\(mealListEndpoint)\(category)") else {
             print("URL Error!! Check list endpoint")
             throw MealError.URLError
         }

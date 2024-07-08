@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomePageView: View {
-    @State private var categoryData: [MealReference]?
+    @State private var categoryData: [Category]?
     var body: some View {
         NavigationStack {
             if let categories = categoryData {
@@ -22,7 +22,7 @@ struct HomePageView: View {
             guard let _ = categoryData else {
                 do {
                     print("FETCHING DATA")
-                    categoryData = try await APIController.fetchList()
+                    categoryData = try await APIController.fetchCategoryList()
                 } catch {
                     print("Error!")
                 }
@@ -33,7 +33,7 @@ struct HomePageView: View {
 }
 
 struct CategoryListView: View {
-    @State var categoryData: [MealReference]
+    @State var categoryData: [Category]
     @State var searchText: String = ""
     var body: some View {
         List {
@@ -46,7 +46,7 @@ struct CategoryListView: View {
         }.searchable(text: $searchText)
     }
     
-    var categories: [MealReference] {
+    var categories: [Category] {
         return searchText.isEmpty ? categoryData : categoryData.filter { $0.strCategory.contains(searchText) }
     }
 }
