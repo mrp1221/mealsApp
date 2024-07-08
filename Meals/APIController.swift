@@ -119,15 +119,13 @@ class APIController {
     
     static func fetchList(categoryQuery: String? = nil) async throws -> [MealReference] {
         let urlString = categoryQuery.map { "\(mealListEndpoint)\($0)" } ?? categoryListEndpoint
-        print(urlString)
-        
+
         guard let url = URL(string: urlString) else {
             print("URL Error!! Check list endpoint")
             throw MealError.URLError
         }
         
         let (data, response) = try await URLSession.shared.data(from: url)
-        print(type(of: data))
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
             print("Response Error! Check list endpoint")
             throw MealError.ResponseError
