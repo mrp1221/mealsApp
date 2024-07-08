@@ -113,7 +113,6 @@ class APIController {
             print("URL Error!! Check category lsit endpoint")
             throw MealError.URLError
         }
-        print(url)
         
         let (data, response) = try await URLSession.shared.data(from: url)
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
@@ -123,10 +122,10 @@ class APIController {
         
         do {
             let categoryData = try JSONDecoder().decode(GetCategoryListResponse.self, from: data)
-            print("Success!!!")
+            print("Category data successfully imported")
             return categoryData.meals
         } catch {
-            print("Error parsing category data from list, check endpoint and respone!", error)
+            print("Error parsing category data from list, check endpoint and response!", error)
             throw MealError.DataParseError
         }
     }
@@ -146,7 +145,7 @@ class APIController {
         
         do {
             let mealsData = try JSONDecoder().decode(GetMealListResponse.self, from: data)
-            print("Success!!")
+            print("Meal data successfully imported for category \(category)")
             return mealsData.meals
         } catch {
             print("Error parsing data from list, check list endpoint!", data)
@@ -171,7 +170,7 @@ class APIController {
              ***API Returns a list of size 1 on success, nested in 'meals' field. GetMealDataResponse provides workaround for this***
              */
             let mealData = try JSONDecoder().decode(GetMealDataResponse.self, from: data)
-            print("Success!")
+            print("Data successfully imported for meal \(mealId)")
             if mealData.meals.count == 0 {
                 print("Parsing failed halfway through, see endpoint for id \(mealId)")
                 throw MealError.DataParseError
