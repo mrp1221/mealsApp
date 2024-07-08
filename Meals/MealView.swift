@@ -149,7 +149,7 @@ struct HorizontalMealView: View {
                 ScrollView {
                     Text("**Instructions:**").font(.title3)
                     Text(meal.strInstructions)
-                        .font(.caption)
+                        .font(.callout)
                         .padding()
                 }
                 .frame(width: metrics.size.width * 0.5)
