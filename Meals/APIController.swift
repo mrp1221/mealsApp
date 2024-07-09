@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Wrapper for category response data
 struct GetCategoryListResponse: Decodable {
     let meals: [Category]
 }
@@ -15,6 +16,7 @@ struct Category: Decodable, Hashable {
     let strCategory: String
 }
 
+// Wrapper for meal reference response data
 struct GetMealListResponse: Decodable {
     let meals: [MealReference]
 }
@@ -25,7 +27,7 @@ struct MealReference: Decodable, Hashable {
     let idMeal: String
 }
 
-// Individual meals are returned in a list of size 1
+// Wrapper for meal data (individual meals are returned in a list of size 1)
 struct GetMealDataResponse: Decodable {
     let meals: [Meal]
 }
@@ -40,6 +42,7 @@ final class Meal: Decodable, ObservableObject {
         let measurement: String
     }
     
+    // Need custom decoding due to the format of the ingredient data in API response
     struct DynamicCodingKeys: CodingKey {
         var intValue: Int? // Not used, but needed for CodingKey conformity
         var stringValue: String
@@ -72,6 +75,7 @@ final class Meal: Decodable, ObservableObject {
         let customContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
         let defaultContainer = try decoder.container(keyedBy: StringCodingKeys.self)
         
+        // All the standard data can be imported by name
         self.idMeal = try defaultContainer.decodeIfPresent(String.self, forKey: .idMeal) ?? ""
         self.strMeal = try defaultContainer.decodeIfPresent(String.self, forKey: .strMeal) ?? ""
         self.strDrinkAlternate = try defaultContainer.decodeIfPresent(String.self, forKey: .strDrinkAlternate) ?? nil
@@ -86,6 +90,7 @@ final class Meal: Decodable, ObservableObject {
         self.strCreativeCommonsConfirmed = try defaultContainer.decodeIfPresent(String.self, forKey: .strCreativeCommonsConfirmed) ?? nil
         self.dateModified = try defaultContainer.decodeIfPresent(String.self, forKey: .dateModified) ?? nil
         
+        // Dynamically import the ingredient and measurement data fields
         self.ingredients = []
         for i in 1...20 {
             let ingredientKey = DynamicCodingKeys(stringValue: "strIngredient\(i)")
